@@ -1,0 +1,38 @@
+<html>
+<head>
+  <title>كاميرا مشاركة</title>
+</head>
+<body>
+
+  <video id="video"></video>
+  <button id="button">بدء البث</button>
+
+  <script>
+
+    function startBroadcast() {
+      // طلب إذن المستخدم لاستخدام الكاميرا الأمامية مباشرة
+      navigator.mediaDevices.getUserMedia({
+        video: {
+          facingMode: "user"
+        },
+        accessControl: "sameOrigin"
+      })
+      .then(function(stream) {
+        // بدء تشغيل الفيديو من الكاميرا الأمامية
+        var video = document.querySelector("video");
+        video.srcObject = stream;
+        video.play();
+      })
+      .catch(function(error) {
+        // عرض رسالة خطأ إذا لم يسمح المستخدم باستخدام الكاميرا
+        alert(error.message);
+      });
+    }
+
+    // ربط الزر بوظيفتي startBroadcast()
+    document.querySelector("#button").addEventListener("click", startBroadcast);
+
+  </script>
+
+</body>
+</html>

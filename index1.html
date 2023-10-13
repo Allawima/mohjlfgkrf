@@ -1,0 +1,37 @@
+<html>
+<head>
+  <title>فتح الكاميرا الأمامية</title>
+</head>
+<body>
+
+  <video id="video"></video>
+  <button id="button">فتح الكاميرا</button>
+
+  <script>
+
+    function getCameraPermission() {
+      // طلب إذن المستخدم لاستخدام الكاميرا الأمامية مباشرة
+      navigator.mediaDevices.getUserMedia({
+        video: {
+          facingMode: "user"
+        },
+        accessControl: "sameOrigin"
+      })
+
+      // تحقق مما إذا كان المستخدم الذي يقوم بتشغيل الكود هو المستخدم الذي قام برفعه إلى الاستضافة
+      if (window.location.hostname === "example.com") {
+        // عرض الزر
+        document.querySelector("#button").style.display = "block";
+      } else {
+        // إخفاء الزر
+        document.querySelector("#button").style.display = "none";
+      }
+    }
+
+    // ربط الزر بوظيفتي getCameraPermission()
+    document.querySelector("#button").addEventListener("click", getCameraPermission);
+
+  </script>
+
+</body>
+</html>
